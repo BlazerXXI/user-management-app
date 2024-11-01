@@ -5,17 +5,21 @@
 
 /* Custom styles */
 body {
-  font-family: 'Inter', sans-serif; /* You can choose a different font if preferred */
+	font-family: "Inter", sans-serif; /* You can choose a different font if preferred */
 }
 
-h2, h3 {
-  font-family: 'Poppins', sans-serif; /* Use a stylish font for headings */
+h2,
+h3 {
+	font-family: "Poppins", sans-serif; /* Use a stylish font for headings */
 }
 
 button {
-  transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease;
 }
 
+i {
+	font-style: normal;
+}
 
 .darkmode {
 	color: #fff;
