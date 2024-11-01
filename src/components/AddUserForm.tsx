@@ -38,7 +38,7 @@ const AddUserForm: React.FC = () => {
 					id="name"
 					value={name}
 					onChange={(e) => setName(e.target.value)}
-					className="p-2 border border-gray-300 rounded"
+					className="p-2 border border-gray-300 rounded text-black"
 					placeholder="Enter name"
 					required
 				/>
@@ -52,7 +52,7 @@ const AddUserForm: React.FC = () => {
 					id="email"
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
-					className="p-2 border border-gray-300 rounded"
+					className="p-2 border border-gray-300 rounded text-black"
 					placeholder="Enter email"
 					required
 				/>
