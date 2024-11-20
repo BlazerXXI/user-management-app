@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { User as UserType } from "../store/store";
-import { toast } from "react-toastify";
 
 interface UserProps {
 	user: UserType;

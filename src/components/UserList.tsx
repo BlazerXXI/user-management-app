@@ -44,11 +44,11 @@ const UserList = (props: IUserList) => {
 
 	const handleFavoriteUser = (userId: number) => {
 		dispatch(toggleFavoriteUser({ id: userId }));
-		toast.info("User favorite status updated!");
 	};
 
 	const handleUpdateUser = (user: UserType) => {
 		dispatch(updateUser(user));
+		toast.info("User successfully updated!");
 	};
 
 	const filteredUsers = users.filter((user) => {
