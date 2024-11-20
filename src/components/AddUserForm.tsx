@@ -1,36 +1,62 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/store";
+import { toast } from "react-toastify";
 
-const AddUserForm: React.FC = () => {
+interface IAddUserForm {
+	darkMode: boolean;
+}
+
+const AddUserForm = (props: IAddUserForm) => {
+	const { darkMode } = props;
+
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
+	const [phone, setPhone] = useState("");
 	const dispatch = useDispatch();
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		if (name && email) {
+		if (name && (email || phone)) {
 			dispatch(
 				addUser({
 					name,
 					email,
+					phone,
 					id: Date.now(),
 					isFavorite: false,
 				})
 			);
 			setName("");
 			setEmail("");
+			setPhone("");
+			toast.success("User successfully added!");
+		} else {
+			toast.error("Please enter a name and at least one contact method");
 		}
 	};
 
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="mb-6 p-4 bg-white rounded-lg shadow-md"
+			className={`mb-6 p-4 bg-white rounded-lg shadow-md   ${
+				darkMode
+					? "text-white bg-opacity-15"
+					: "text-black bg-opacity-100 border"
+			}`}
 		>
-			<h2 className="text-2xl font-semibold mb-4 text-black">Add User</h2>
+			<h2
+				className={`text-2xl font-semibold mb-4 ${
+					darkMode ? "text-white" : "text-gray-800"
+				}`}
+			>
+				Add User
+			</h2>
 			<div className="flex flex-col mb-4">
-				<label className="text-gray-700 mb-2" htmlFor="name">
+				<label
+					className={`${darkMode ? "text-white" : "text-gray-700 "} mb-2`}
+					htmlFor="name"
+				>
 					Name
 				</label>
 				<input
@@ -38,13 +64,20 @@ const AddUserForm: React.FC = () => {
 					id="name"
 					value={name}
 					onChange={(e) => setName(e.target.value)}
-					className="p-2 border border-gray-300 rounded text-black"
+					className={`p-2 rounded bg-white  ${
+						darkMode
+							? "text-white bg-opacity-15"
+							: "text-black bg-opacity-100 border"
+					}`}
 					placeholder="Enter name"
 					required
 				/>
 			</div>
 			<div className="flex flex-col mb-4">
-				<label className="text-gray-700 mb-2" htmlFor="email">
+				<label
+					className={`${darkMode ? "text-white" : "text-gray-700 "} mb-2`}
+					htmlFor="email"
+				>
 					Email
 				</label>
 				<input
@@ -52,9 +85,43 @@ const AddUserForm: React.FC = () => {
 					id="email"
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
-					className="p-2 border border-gray-300 rounded text-black"
+					className={`p-2 rounded bg-white  ${
+						darkMode
+							? "text-white bg-opacity-15"
+							: "text-black bg-opacity-100 border"
+					}`}
 					placeholder="Enter email"
-					required
+				/>
+			</div>
+			<div className="flex items-center justify-center">
+				<hr className="w-1/3 border-t-2 border-gray-300" />
+				<p
+					className={`px-4 text-gray-700  ${
+						darkMode ? "text-white" : "text-gray-700"
+					}`}
+				>
+					OR
+				</p>
+				<hr className="w-1/3 border-t-2 border-gray-300" />
+			</div>
+			<div className="flex flex-col mb-4">
+				<label
+					className={`${darkMode ? "text-white" : "text-gray-700 "} mb-2`}
+					htmlFor="phone"
+				>
+					Phone
+				</label>
+				<input
+					type="phone"
+					id="phone"
+					value={phone}
+					onChange={(e) => setPhone(e.target.value)}
+					className={`p-2 rounded bg-white  ${
+						darkMode
+							? "text-white bg-opacity-15"
+							: "text-black bg-opacity-100 border"
+					}`}
+					placeholder="Enter phone"
 				/>
 			</div>
 			<button

@@ -1,27 +1,25 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // Используем localStorage для хранения
+import storage from "redux-persist/lib/storage";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import themeReducer from "./themeSlice";
 
-// Определяем тип пользователя
 export interface User {
 	id: number;
 	name: string;
 	email: string;
+	phone: string;
 	isFavorite: boolean;
 }
 
-// Определяем начальное состояние
 interface UsersState {
 	users: User[];
 }
 
-// Начальное состояние
 const initialState: UsersState = {
 	users: [],
 };
 
-// Создаём slice
 const usersSlice = createSlice({
 	name: "users",
 	initialState,
@@ -49,11 +47,9 @@ const usersSlice = createSlice({
 	},
 });
 
-// Экспортируем действия
 export const { addUser, removeUser, toggleFavoriteUser, updateUser } =
 	usersSlice.actions;
 
-// Настраиваем хранилище
 const persistConfig = {
 	key: "root",
 	storage,
@@ -61,17 +57,19 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, usersSlice.reducer);
 
-// Создаём Redux Store
 export const store = configureStore({
 	reducer: {
+		theme: themeReducer,
 		users: persistedReducer,
 	},
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: false,
+		}),
 });
 
-// Создаём persistor
 export const persistor = persistStore(store);
 
-// Определяем тип корневого состояния
 export type RootState = ReturnType<typeof store.getState>;
 
 export default store;
