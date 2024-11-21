@@ -124,12 +124,11 @@ const UserList = (props: IUserList) => {
 					<Button
 						type="button"
 						onClick={() => setIsModalOpen(false)}
-						className=" bg-gray-300 hover:bg-gray-400"
-						color="black"
+						theme="gray"
 					>
 						Cancel
 					</Button>
-					<Button type="button" onClick={confirmRemoveUser} bg="red">
+					<Button type="button" onClick={confirmRemoveUser} theme="red">
 						Delete
 					</Button>
 				</div>

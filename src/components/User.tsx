@@ -143,8 +143,7 @@ const User: React.FC<UserProps> = ({
 				<Button
 					type="button"
 					onClick={() => onFavorite(user.id)}
-					bg="orange"
-					color="white"
+					theme="orange"
 				>
 					{user.isFavorite ? "⭐ Unfavorite" : "Favorite"}
 				</Button>
@@ -152,8 +151,7 @@ const User: React.FC<UserProps> = ({
 					<Button
 						type="button"
 						onClick={handleSaveClick}
-						bg="green"
-						color="white"
+						theme="green"
 					>
 						{update ? (
 							<div className="flex items-center">
@@ -168,8 +166,7 @@ const User: React.FC<UserProps> = ({
 				<Button
 					type="button"
 					onClick={() => onRemove(user.id)}
-					bg="red"
-					color="white"
+					theme="red"
 				>
 					🗑 Remove
 				</Button>

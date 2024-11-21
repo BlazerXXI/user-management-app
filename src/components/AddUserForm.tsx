@@ -108,7 +108,7 @@ const AddUserForm = (props: IAddUserForm) => {
 					placeholder="Enter phone"
 				/>
 			</div>
-			<Button type="submit" bg="blue" color="white">
+			<Button type="submit" theme="blue">
 				Add User
 			</Button>
 		</form>
