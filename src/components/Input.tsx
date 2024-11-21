@@ -52,7 +52,7 @@ const Input = (props: IInput) => {
 					}
 					autoComplete={autoComplete || "on"}
 					className={cx(
-						`p-2 rounded bg-white ${
+						`p-2 rounded bg-white resize-none ${
 							darkMode
 								? "text-white bg-opacity-15"
 								: "text-black bg-opacity-100 border"

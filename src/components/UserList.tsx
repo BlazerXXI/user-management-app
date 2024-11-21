@@ -12,6 +12,7 @@ import ReactModal from "react-modal";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Input from "./Input";
+import Button from "./Button";
 
 ReactModal.setAppElement("#root");
 
@@ -120,20 +121,17 @@ const UserList = (props: IUserList) => {
 					Are you sure you want to delete this user?
 				</h3>
 				<div className="flex justify-end gap-4">
-					<button
+					<Button
 						type="button"
 						onClick={() => setIsModalOpen(false)}
-						className="px-4 py-2 bg-gray-300 rounded"
+						className=" bg-gray-300 hover:bg-gray-400"
+						color="black"
 					>
 						Cancel
-					</button>
-					<button
-						type="button"
-						onClick={confirmRemoveUser}
-						className="px-4 py-2 bg-red-500 text-white rounded"
-					>
+					</Button>
+					<Button type="button" onClick={confirmRemoveUser} bg="red">
 						Delete
-					</button>
+					</Button>
 				</div>
 			</ReactModal>
 		</div>

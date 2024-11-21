@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { User as UserType } from "../store/store";
 import Input from "./Input";
 import EmptyData from "./EmptyData";
+import Button from "./Button";
 
 interface UserProps {
 	user: UserType;
@@ -139,36 +140,39 @@ const User: React.FC<UserProps> = ({
 				</div>
 			</div>
 			<div className="flex justify-between gap-1 mt-4 text-sm">
-				<button
+				<Button
 					type="button"
 					onClick={() => onFavorite(user.id)}
-					className="bg-orange-500 text-white max-md:w-1/3 px-2 py-2 rounded hover:bg-orange-600 transition duration-200 flex items-center"
+					bg="orange"
+					color="white"
 				>
 					{user.isFavorite ? "⭐ Unfavorite" : "Favorite"}
-				</button>
+				</Button>
 				{isEditing && (
-					<button
+					<Button
 						type="button"
 						onClick={handleSaveClick}
-						className="bg-green-500 text-white max-md:w-1/3 px-2 py-2 rounded hover:bg-green-600 transition duration-200 flex items-center"
+						bg="green"
+						color="white"
 					>
 						{update ? (
-							<>
+							<div className="flex items-center">
 								<span className="max-md:hidden">💾 Updating...</span>
-								<span className="animate-spin h-2 w-2 md:h-5 md:w-5 border-b-2 border-white rounded-full mx-2"></span>
-							</>
+								<span className="animate-spin h-2 w-2 md:h-5 md:w-5 border-b-2 border-white inline-block rounded-full mx-2"></span>
+							</div>
 						) : (
 							"💾 Save"
 						)}
-					</button>
+					</Button>
 				)}
-				<button
+				<Button
 					type="button"
 					onClick={() => onRemove(user.id)}
-					className="bg-red-500 text-white max-md:w-1/3 px-2 py-2 rounded hover:bg-red-600 transition duration-200 flex items-center"
+					bg="red"
+					color="white"
 				>
 					🗑 Remove
-				</button>
+				</Button>
 			</div>
 		</div>
 	);

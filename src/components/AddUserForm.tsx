@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../store/store";
 import { toast } from "react-toastify";
 import Input from "./Input";
+import Button from "./Button";
 
 interface IAddUserForm {
 	darkMode: boolean;
@@ -42,10 +43,8 @@ const AddUserForm = (props: IAddUserForm) => {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className={`mb-6 p-4 bg-white rounded-lg shadow-md   ${
-				darkMode
-					? "text-white bg-opacity-15"
-					: "text-black bg-opacity-100 border"
+			className={`mb-6 p-4 bg-white rounded-lg shadow-md ${
+				darkMode ? "text-white bg-opacity-15" : "text-black bg-opacity-100"
 			}`}
 		>
 			<h2
@@ -68,7 +67,6 @@ const AddUserForm = (props: IAddUserForm) => {
 			</div>
 			<div className="flex flex-col mb-4">
 				<Input
-					className="resize-none"
 					textarea
 					darkMode={darkMode}
 					id="description"
@@ -110,12 +108,9 @@ const AddUserForm = (props: IAddUserForm) => {
 					placeholder="Enter phone"
 				/>
 			</div>
-			<button
-				type="submit"
-				className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200"
-			>
+			<Button type="submit" bg="blue" color="white">
 				Add User
-			</button>
+			</Button>
 		</form>
 	);
 };
