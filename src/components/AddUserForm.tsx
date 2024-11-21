@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/store";
 import { toast } from "react-toastify";
+import Input from "./Input";
 
 interface IAddUserForm {
 	darkMode: boolean;
@@ -11,6 +12,7 @@ const AddUserForm = (props: IAddUserForm) => {
 	const { darkMode } = props;
 
 	const [name, setName] = useState("");
+	const [description, setDescription] = useState("");
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 	const dispatch = useDispatch();
@@ -21,6 +23,7 @@ const AddUserForm = (props: IAddUserForm) => {
 			dispatch(
 				addUser({
 					name,
+					description,
 					email,
 					phone,
 					id: Date.now(),
@@ -53,50 +56,43 @@ const AddUserForm = (props: IAddUserForm) => {
 				Add User
 			</h2>
 			<div className="flex flex-col mb-4">
-				<label
-					className={`${darkMode ? "text-white" : "text-gray-700 "} mb-2`}
-					htmlFor="name"
-				>
-					Name
-				</label>
-				<input
-					type="text"
+				<Input
+					darkMode={darkMode}
 					id="name"
+					type="text"
+					autoComplete="name"
 					value={name}
 					onChange={(e) => setName(e.target.value)}
-					className={`p-2 rounded bg-white  ${
-						darkMode
-							? "text-white bg-opacity-15"
-							: "text-black bg-opacity-100 border"
-					}`}
 					placeholder="Enter name"
-					required
 				/>
 			</div>
 			<div className="flex flex-col mb-4">
-				<label
-					className={`${darkMode ? "text-white" : "text-gray-700 "} mb-2`}
-					htmlFor="email"
-				>
-					Email
-				</label>
-				<input
+				<Input
+					className="resize-none"
+					textarea
+					darkMode={darkMode}
+					id="description"
+					type="text"
+					value={description}
+					onChange={(e) => setDescription(e.target.value)}
+					placeholder="Enter description"
+				/>
+			</div>
+			<div className="flex flex-col mb-4">
+				<Input
+					darkMode={darkMode}
+					autoComplete="on"
 					type="email"
 					id="email"
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
-					className={`p-2 rounded bg-white  ${
-						darkMode
-							? "text-white bg-opacity-15"
-							: "text-black bg-opacity-100 border"
-					}`}
 					placeholder="Enter email"
 				/>
 			</div>
-			<div className="flex items-center justify-center">
+			<div className="flex items-center justify-center mb-4">
 				<hr className="w-1/3 border-t-2 border-gray-300" />
 				<p
-					className={`px-4 text-gray-700  ${
+					className={`px-4 text-gray-700 ${
 						darkMode ? "text-white" : "text-gray-700"
 					}`}
 				>
@@ -105,22 +101,12 @@ const AddUserForm = (props: IAddUserForm) => {
 				<hr className="w-1/3 border-t-2 border-gray-300" />
 			</div>
 			<div className="flex flex-col mb-4">
-				<label
-					className={`${darkMode ? "text-white" : "text-gray-700 "} mb-2`}
-					htmlFor="phone"
-				>
-					Phone
-				</label>
-				<input
+				<Input
+					darkMode={darkMode}
 					type="phone"
 					id="phone"
 					value={phone}
 					onChange={(e) => setPhone(e.target.value)}
-					className={`p-2 rounded bg-white  ${
-						darkMode
-							? "text-white bg-opacity-15"
-							: "text-black bg-opacity-100 border"
-					}`}
 					placeholder="Enter phone"
 				/>
 			</div>

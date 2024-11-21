@@ -11,6 +11,7 @@ import User from "./User";
 import ReactModal from "react-modal";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Input from "./Input";
 
 ReactModal.setAppElement("#root");
 
@@ -48,7 +49,6 @@ const UserList = (props: IUserList) => {
 
 	const handleUpdateUser = (user: UserType) => {
 		dispatch(updateUser(user));
-		toast.info("User successfully updated!");
 	};
 
 	const filteredUsers = users.filter((user) => {
@@ -64,14 +64,15 @@ const UserList = (props: IUserList) => {
 		<div className="flex flex-col gap-4">
 			<h2 className="text-2xl font-bold">User List</h2>
 			<div className="w-full relative mb-4">
-				<input
+				<Input
 					type="text"
 					placeholder="Search by name or email"
 					value={searchQuery}
 					onChange={(e) => setSearchQuery(e.target.value)}
-					className={`outline-none p-2 rounded bg-white  ${
-						darkMode ? "text-white bg-opacity-15" : "text-black bg-opacity-100"
-					} w-full h-full`}
+					id={"search"}
+					autoComplete="searchQuery"
+					className="w-full"
+					darkMode={darkMode}
 				/>
 				{searchQuery && (
 					<i
@@ -105,7 +106,9 @@ const UserList = (props: IUserList) => {
 						))}
 				</ul>
 			) : (
-				<p>No users found.</p>
+				<div className="flex flex-col justify-center items-center">
+					<p>No users found.</p>
+				</div>
 			)}
 			<ReactModal
 				isOpen={isModalOpen}

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { User as UserType } from "../store/store";
+import Input from "./Input";
+import EmptyData from "./EmptyData";
 
 interface UserProps {
 	user: UserType;
@@ -20,6 +22,7 @@ const User: React.FC<UserProps> = ({
 	const [editedName, setEditedName] = useState(user.name);
 	const [editedEmail, setEditedEmail] = useState(user.email);
 	const [editedPhone, setEditedPhone] = useState(user.phone);
+	const [editedDescription, setEditedDescription] = useState(user.description);
 	const [update, setUpdate] = useState(false);
 
 	const handleEditClick = () => {
@@ -32,6 +35,7 @@ const User: React.FC<UserProps> = ({
 			name: editedName,
 			email: editedEmail,
 			phone: editedPhone,
+			description: editedDescription,
 		});
 		setUpdate(true);
 		setTimeout(() => {
@@ -54,54 +58,74 @@ const User: React.FC<UserProps> = ({
 				darkMode ? "text-white bg-opacity-15" : "text-gray-800 bg-opacity-100"
 			}`}
 		>
-			<div className="flex justify-between border-b-2 border-gray-200 pb-2">
+			<div className="flex max-md:flex-col gap-4 justify-between border-b-2 border-gray-200 pb-2">
 				<form onSubmit={handleSaveClick} className="flex flex-col gap-4">
 					{isEditing ? (
-						<input
+						<Input
+							placeholder="Fill Name..."
+							darkMode={darkMode}
 							type="text"
+							autoComplete="name"
 							value={editedName}
 							onChange={(e) => setEditedName(e.target.value)}
-							className={`text-xl bg-white  ${
-								darkMode ? "text-white bg-opacity-15" : "text-gray-800"
-							}`}
+							id="name"
 						/>
 					) : (
 						<h3
 							onClick={handleEditClick}
 							className="text-xl font-semibold cursor-pointer"
 						>
-							{user.name}
+							{user.name || <EmptyData>Fill Name...</EmptyData>}
 						</h3>
 					)}
 					{isEditing ? (
-						<input
-							className={`text-xl bg-white  ${
-								darkMode ? "text-white bg-opacity-15" : "text-gray-800"
-							}`}
+						<Input
+							placeholder="Fill Email..."
+							darkMode={darkMode}
 							type="email"
-							value={editedEmail}
+							autoComplete="email"
 							onChange={(e) => setEditedEmail(e.target.value)}
+							value={editedEmail}
+							id={"email"}
 						/>
 					) : (
 						<p onClick={handleEditClick} className=" cursor-pointer">
-							{user.email}
+							{user.email || <EmptyData>Fill Email...</EmptyData>}
 						</p>
 					)}
 					{isEditing ? (
-						<input
-							className={`text-xl bg-white  ${
-								darkMode ? "text-white bg-opacity-15" : "text-gray-800"
-							}`}
+						<Input
+							placeholder="Fill Phone Number..."
+							darkMode={darkMode}
 							type="tel"
 							value={editedPhone}
 							onChange={(e) => setEditedPhone(e.target.value)}
+							id={"tel"}
 						/>
 					) : (
 						<p onClick={handleEditClick} className=" cursor-pointer">
-							{user.phone}
+							{user.phone || <EmptyData>Fill Phone Number...</EmptyData>}
 						</p>
 					)}
 				</form>
+				<div className="md:w-1/2">
+					{isEditing ? (
+						<Input
+							textarea
+							placeholder="Fill Description..."
+							darkMode={darkMode}
+							type="richtext"
+							className="w-full h-full max-md:h-80"
+							value={editedDescription}
+							onChange={(e) => setEditedDescription(e.target.value)}
+							id={"description"}
+						/>
+					) : (
+						<p onClick={handleEditClick} className="cursor-pointer">
+							{user.description || <EmptyData>Fill Description...</EmptyData>}
+						</p>
+					)}
+				</div>
 				<div>
 					<p>
 						{new Date(user.id).toLocaleDateString()}{" "}
@@ -114,11 +138,11 @@ const User: React.FC<UserProps> = ({
 					</p>
 				</div>
 			</div>
-			<div className="flex justify-between mt-4">
+			<div className="flex justify-between gap-1 mt-4 text-sm">
 				<button
 					type="button"
 					onClick={() => onFavorite(user.id)}
-					className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition duration-200 flex items-center"
+					className="bg-orange-500 text-white max-md:w-1/3 px-2 py-2 rounded hover:bg-orange-600 transition duration-200 flex items-center"
 				>
 					{user.isFavorite ? "⭐ Unfavorite" : "Favorite"}
 				</button>
@@ -126,12 +150,12 @@ const User: React.FC<UserProps> = ({
 					<button
 						type="button"
 						onClick={handleSaveClick}
-						className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200 flex items-center"
+						className="bg-green-500 text-white max-md:w-1/3 px-2 py-2 rounded hover:bg-green-600 transition duration-200 flex items-center"
 					>
 						{update ? (
 							<>
-								💾 Updating...
-								<span className="animate-spin h-5 w-5 border-b-2 border-white rounded-full mx-2"></span>
+								<span className="max-md:hidden">💾 Updating...</span>
+								<span className="animate-spin h-2 w-2 md:h-5 md:w-5 border-b-2 border-white rounded-full mx-2"></span>
 							</>
 						) : (
 							"💾 Save"
@@ -141,7 +165,7 @@ const User: React.FC<UserProps> = ({
 				<button
 					type="button"
 					onClick={() => onRemove(user.id)}
-					className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-200 flex items-center"
+					className="bg-red-500 text-white max-md:w-1/3 px-2 py-2 rounded hover:bg-red-600 transition duration-200 flex items-center"
 				>
 					🗑 Remove
 				</button>
